@@ -1,0 +1,65 @@
+<%- include('partials/header') %>
+
+<section class="panel">
+  <h1>编辑公示</h1>
+  <p class="muted">可修改标题、分类、正文，并可增删附件。</p>
+
+  <% if (error) { %>
+    <p class="error"><%= error %></p>
+  <% } %>
+
+  <form action="<%= basePath %>/post/<%= post.id %>/edit" method="post" enctype="multipart/form-data" class="form-grid">
+    <label>
+      标题
+      <input type="text" name="title" required value="<%= post.title || '' %>" />
+    </label>
+
+    <label>
+      分类
+      <select name="category" required>
+        <option value="">请选择</option>
+        <% Object.entries(categories).forEach(([key, label]) => { %>
+          <option value="<%= key %>" <%= post.category === key ? 'selected' : '' %>><%= label %></option>
+        <% }) %>
+      </select>
+    </label>
+
+    <label>
+      正文
+      <textarea name="content" rows="8" required><%= post.content || '' %></textarea>
+    </label>
+
+    <div class="existing-files">
+      <h3>现有附件</h3>
+      <% if (!attachments.length) { %>
+        <p class="muted">暂无附件</p>
+      <% } else { %>
+        <ul class="file-list editable">
+          <% attachments.forEach(file => { %>
+            <li>
+              <span>
+                <a href="<%= basePath %>/attachments/<%= file.id %>/view" target="_blank" rel="noopener"><%= file.originalName %></a>
+              </span>
+              <label class="check-inline">
+                <input type="checkbox" name="deleteAttachmentIds" value="<%= file.id %>" />
+                删除该附件
+              </label>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </div>
+
+    <label>
+      新增附件（可多选）
+      <input type="file" name="attachments" multiple />
+    </label>
+
+    <div class="form-actions">
+      <button type="submit">保存修改</button>
+      <a href="<%= basePath %>/post/<%= post.id %>">返回详情</a>
+    </div>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

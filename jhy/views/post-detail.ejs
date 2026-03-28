@@ -1,0 +1,101 @@
+<%- include('partials/header') %>
+
+<article class="panel">
+  <div class="section-head">
+    <h1><%= post.title %></h1>
+    <% if (canManage) { %>
+      <div class="row-actions">
+        <a href="<%= basePath %>/post/<%= post.id %>/edit">编辑</a>
+        <form action="<%= basePath %>/post/<%= post.id %>/delete" method="post" class="inline-form" onsubmit="return confirm('确认删除该公示吗？');">
+          <button type="submit" class="link-danger">删除</button>
+        </form>
+      </div>
+    <% } %>
+  </div>
+  <p class="meta">
+    分类：<%= post.categoryLabel %> · 发布人：<%= post.authorName %> · 发布时间：<%= new Date(post.createdAt).toLocaleString('zh-CN') %>
+    <% if (post.updatedAt) { %>
+      · 最近更新：<%= new Date(post.updatedAt).toLocaleString('zh-CN') %>
+    <% } %>
+  </p>
+
+  <div class="content"><%- post.content.replace(/\n/g, '<br/>') %></div>
+</article>
+
+<section class="panel">
+  <h2>附件</h2>
+  <p class="muted">仅显示文件类型图标，点击附件后弹出查看。</p>
+
+  <% if (!attachments.length) { %>
+    <p>无附件。</p>
+  <% } else { %>
+    <div class="attachment-grid">
+      <% attachments.forEach(file => { %>
+        <button
+          type="button"
+          class="attachment-card"
+          data-preview-url="<%= basePath %>/attachments/<%= file.id %>/view?embed=1"
+          data-title="<%= file.originalName %>"
+        >
+          <span class="attachment-icon"><%= file.icon %></span>
+          <span class="attachment-info">
+            <strong><%= file.originalName %></strong>
+            <small><%= file.label %> · <%= file.extText %> · <%= Math.ceil(file.size / 1024) %> KB</small>
+          </span>
+        </button>
+      <% }) %>
+    </div>
+  <% } %>
+</section>
+
+<div id="previewModal" class="preview-modal" hidden>
+  <div class="preview-modal-backdrop" data-close-modal="1"></div>
+  <div class="preview-modal-dialog" role="dialog" aria-modal="true" aria-label="附件预览">
+    <div class="preview-modal-head">
+      <strong id="previewTitle">附件预览</strong>
+      <button type="button" class="ghost-btn" id="previewCloseBtn">关闭</button>
+    </div>
+    <div class="preview-modal-body">
+      <iframe id="previewFrame" title="附件预览窗口"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const modal = document.getElementById('previewModal');
+    const frame = document.getElementById('previewFrame');
+    const titleEl = document.getElementById('previewTitle');
+    const closeBtn = document.getElementById('previewCloseBtn');
+    const cards = document.querySelectorAll('.attachment-card');
+
+    const openModal = (title, url) => {
+      titleEl.textContent = title || '附件预览';
+      frame.src = url;
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      modal.hidden = true;
+      frame.src = 'about:blank';
+      document.body.style.overflow = '';
+    };
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        openModal(card.dataset.title, card.dataset.previewUrl);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+      if (event.target.dataset.closeModal === '1') closeModal();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (!modal.hidden && event.key === 'Escape') closeModal();
+    });
+  })();
+</script>
+
+<%- include('partials/footer') %>

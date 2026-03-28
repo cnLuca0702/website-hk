@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+
+<section class="panel">
+  <h1>附件在线预览</h1>
+  <p class="muted"><%= title %></p>
+
+  <% if (mode === 'html') { %>
+    <div class="doc-preview"><%- html %></div>
+  <% } %>
+
+  <% if (mode === 'text') { %>
+    <pre class="doc-text"><%= text %></pre>
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>

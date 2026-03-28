@@ -1,0 +1,62 @@
+<%- include('partials/header') %>
+
+<section class="panel">
+  <h1>发帖权限管理</h1>
+  <p class="muted">可按分类控制用户发帖权限（社区信息 / 业委会信息 / 物业信息）。</p>
+
+  <% if (message) { %>
+    <p class="info"><%= message %></p>
+  <% } %>
+
+  <h2>新建用户</h2>
+  <form action="<%= basePath %>/admin/users" method="post" class="form-inline">
+    <input name="username" placeholder="用户名" required />
+    <input type="password" name="password" placeholder="初始密码" required />
+    <select name="role" required>
+      <option value="resident">resident</option>
+      <option value="editor">editor</option>
+      <option value="admin">admin</option>
+    </select>
+    <button type="submit">创建</button>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>用户权限表</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>用户名</th>
+          <th>角色</th>
+          <th>社区信息</th>
+          <th>业委会信息</th>
+          <th>物业信息</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(user => { %>
+          <tr>
+            <form action="<%= basePath %>/admin/users/<%= user.id %>/permissions" method="post">
+              <td><%= user.username %></td>
+              <td>
+                <select name="role">
+                  <option value="resident" <%= user.role === 'resident' ? 'selected' : '' %>>resident</option>
+                  <option value="editor" <%= user.role === 'editor' ? 'selected' : '' %>>editor</option>
+                  <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>admin</option>
+                </select>
+              </td>
+              <td><input type="checkbox" name="community" <%= user.permissions.community ? 'checked' : '' %> <%= user.role === 'admin' ? 'disabled' : '' %> /></td>
+              <td><input type="checkbox" name="committee" <%= user.permissions.committee ? 'checked' : '' %> <%= user.role === 'admin' ? 'disabled' : '' %> /></td>
+              <td><input type="checkbox" name="property" <%= user.permissions.property ? 'checked' : '' %> <%= user.role === 'admin' ? 'disabled' : '' %> /></td>
+              <td><button type="submit">保存</button></td>
+            </form>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+<section class="panel narrow">
+  <h1>登录</h1>
+  <p class="muted">默认管理员账号：admin / Admin@123456</p>
+
+  <% if (error) { %>
+    <p class="error"><%= error %></p>
+  <% } %>
+
+  <form action="<%= basePath %>/login" method="post" class="form-grid">
+    <label>
+      用户名
+      <input type="text" name="username" required />
+    </label>
+
+    <label>
+      密码
+      <input type="password" name="password" required />
+    </label>
+
+    <button type="submit">登录</button>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

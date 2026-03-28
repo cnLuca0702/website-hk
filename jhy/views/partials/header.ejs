@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= siteName %></title>
+  <link rel="stylesheet" href="<%= basePath %>/public/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav-wrap">
+      <a class="brand" href="<%= basePath %>/">
+        <span class="brand-mark">景</span>
+        <span>
+          <strong><%= siteName %></strong>
+          <small>公开透明 · 及时发布</small>
+        </span>
+      </a>
+      <nav>
+        <a href="<%= basePath %>/">公示首页</a>
+        <% if (currentUser) { %>
+          <a href="<%= basePath %>/posts/new">发布公示</a>
+          <% if (currentUser.role === 'admin') { %>
+            <a href="<%= basePath %>/admin/users">权限管理</a>
+          <% } %>
+          <form action="<%= basePath %>/logout" method="post" class="inline-form">
+            <button type="submit" class="ghost-btn">退出（<%= currentUser.username %>）</button>
+          </form>
+        <% } else { %>
+          <a class="solid-link" href="<%= basePath %>/login">登录</a>
+        <% } %>
+      </nav>
+    </div>
+  </header>
+  <main class="container main-content">

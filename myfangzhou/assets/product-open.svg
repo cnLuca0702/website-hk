@@ -1,0 +1,26 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eff4ef"/>
+      <stop offset="100%" stop-color="#d7e1d4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg2)"/>
+  <text x="600" y="110" text-anchor="middle" font-size="44" font-family="Arial, sans-serif" fill="#1c3d33">方舟行囊开箱分仓</text>
+  <rect x="160" y="170" width="880" height="580" rx="28" fill="#24332d"/>
+  <rect x="210" y="220" width="400" height="220" rx="16" fill="#f6e8ca"/>
+  <rect x="630" y="220" width="360" height="220" rx="16" fill="#dcebdc"/>
+  <rect x="210" y="460" width="360" height="240" rx="16" fill="#d8e2f5"/>
+  <rect x="590" y="460" width="400" height="240" rx="16" fill="#f7dcd8"/>
+
+  <text x="410" y="335" text-anchor="middle" font-size="36" font-family="Arial, sans-serif" fill="#7a4e1f">食物模块</text>
+  <text x="810" y="335" text-anchor="middle" font-size="36" font-family="Arial, sans-serif" fill="#2f5d46">净水模块</text>
+  <text x="390" y="595" text-anchor="middle" font-size="36" font-family="Arial, sans-serif" fill="#2f4b75">照明通信</text>
+  <text x="790" y="595" text-anchor="middle" font-size="36" font-family="Arial, sans-serif" fill="#863f37">医疗工具</text>
+
+  <rect x="730" y="490" width="96" height="38" rx="8" fill="#c45134"/>
+  <text x="778" y="517" text-anchor="middle" font-size="18" font-family="Arial, sans-serif" fill="#fff">急救包</text>
+  <rect x="275" y="255" width="130" height="42" rx="8" fill="#cfa05d"/>
+  <text x="340" y="283" text-anchor="middle" font-size="18" font-family="Arial, sans-serif" fill="#fff">口粮x30</text>
+  <text x="600" y="805" text-anchor="middle" font-size="30" font-family="Arial, sans-serif" fill="#395148">按场景快速取用，不慌乱</text>
+</svg>

@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+
+<section class="panel">
+  <h1>发布公示</h1>
+  <p class="muted">支持上传图片、Word、Excel、PDF。附件仅支持在线浏览，不提供下载入口。</p>
+
+  <% if (error) { %>
+    <p class="error"><%= error %></p>
+  <% } %>
+
+  <form action="<%= basePath %>/posts" method="post" enctype="multipart/form-data" class="form-grid">
+    <label>
+      标题
+      <input type="text" name="title" required value="<%= form.title || '' %>" />
+    </label>
+
+    <label>
+      分类
+      <select name="category" required>
+        <option value="">请选择</option>
+        <% Object.entries(categories).forEach(([key, label]) => { %>
+          <option value="<%= key %>" <%= form.category === key ? 'selected' : '' %>><%= label %></option>
+        <% }) %>
+      </select>
+    </label>
+
+    <label>
+      正文
+      <textarea name="content" rows="8" required><%= form.content || '' %></textarea>
+    </label>
+
+    <label>
+      附件（可多选）
+      <input type="file" name="attachments" multiple />
+    </label>
+
+    <button type="submit">发布</button>
+  </form>
+</section>
+
+<%- include('partials/footer') %>
