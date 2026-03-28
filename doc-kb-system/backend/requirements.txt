@@ -1,0 +1,26 @@
+# FastAPI
+fastapi
+uvicorn[standard]
+python-multipart
+
+# 文档解析层
+docling
+
+# 分类+抽取层
+extract-thinker
+
+# 知识库合并层
+knowledge-base-builder
+
+# LLM 支持
+litellm
+openai
+anthropic
+
+# 数据验证
+pydantic
+pydantic-settings
+
+# 工具
+python-dotenv
+aiofiles
